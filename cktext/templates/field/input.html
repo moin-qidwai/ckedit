@@ -1,4 +1,17 @@
 {% includeJsResource "cktext/js/ckeditor.js" %}
 
-<textarea  class="ckeditor" name="{{ name }}">{{ value | e}}</textarea>
+<textarea  id="ckeditor_{{name}}" name="{{name}}">{{ value | e}}</textarea>
 	
+<script type="text/javascript">
+var fn = function(){
+	$(document).ready(function(){
+		for(name in CKEDITOR.instances)
+		{
+		    CKEDITOR.instances[name].destroy()
+		}
+		CKEDITOR.replace( 'fields-ckeditor_{{name}}' );
+	});
+}
+
+window.addEventListener('load', fn, false );
+</script>
